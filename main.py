@@ -28,5 +28,4 @@ def zeros(n):
 
 if __name__ == "__main__":
     # print(domain_name("http://google.com"))
-    # print(int32_to_ip(0))
-    print(zeros(30))
+    print(int32_to_ip(0))
