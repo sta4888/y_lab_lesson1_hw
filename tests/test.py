@@ -1,7 +1,7 @@
 # --color=yes
 import pytest
 
-from main import domain_name, int32_to_ip, zeros
+from main import domain_name, int32_to_ip, zeros, bananas, count_find_num
 
 
 @pytest.mark.parametrize(
@@ -32,4 +32,32 @@ def test_int32_to_ip(input, expected):
                         ]
 )
 def test_zeros(input, expected):
-    assert zeros(0) == 0
+    assert zeros(input) == expected
+
+
+@pytest.mark.parametrize(
+    "input, expected", [
+        ("banann", set()),
+        ("banana", {"banana"}),
+        ("bbananana", {"b-an--ana", "-banana--", "-b--anana", "b-a--nana", "-banan--a",
+                       "b-ana--na", "b---anana", "-bana--na", "-ba--nana", "b-anan--a",
+                       "-ban--ana", "b-anana--"}),
+        ("bananaaa", {"banan-a-", "banana--", "banan--a"}),
+        ("bananana", {"ban--ana", "ba--nana", "bana--na", "b--anana", "banana--", "banan--a"}),
+    ]
+)
+def test_bananas(input, expected):
+    assert bananas(input) == expected
+
+
+@pytest.mark.parametrize(
+    "primesL, limit, expected", [
+        ([2, 3], 200, [13, 192]),
+        ([2, 5], 200, [8, 200]),
+        ([2, 3, 5], 500, [12, 480]),
+        ([2, 3, 5], 1000, [19, 960]),
+        ([2, 3, 47], 200, []),
+    ]
+)
+def test_count_find_num(primesL, limit, expected):
+    assert count_find_num(primesL, limit) == expected

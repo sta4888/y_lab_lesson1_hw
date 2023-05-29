@@ -1,4 +1,5 @@
 def domain_name(url: str) -> str:
+    """метод domain_name, который вернет домен из url адреса"""
     s = {"http://", "www.", "https://"}
     for i in s:
         if i in url:
@@ -7,6 +8,7 @@ def domain_name(url: str) -> str:
 
 
 def int32_to_ip(int32):
+    """int32_to_ip, который принимает на вход 32-битное целое число (integer) и возвращает строковое представление его в виде IPv4-адреса"""
     h = hex(int32)
     rt = str(h)[2:]
     if len(rt) < 8:
@@ -19,6 +21,7 @@ def int32_to_ip(int32):
 
 
 def zeros(n):
+    """метод zeros, который принимает на вход целое число (integer) и возвращает количество конечных нулей в факториале заданного числа"""
     result = 0
     while n > 0:
         n //= 5
@@ -26,6 +29,58 @@ def zeros(n):
     return result
 
 
+def bananas(s) -> set:
+    """думаю, это гениальное решение)"""
+    ret = get_list_of_words_banana(s, "banana")
+    result = set()
+    result.update(ret)
+    # Your code here!
+    return result
+
+
+def get_list_of_words_banana(s, word):
+    ret = []
+
+    if word == '':
+        ret.append(''.rjust(len(s), '-'))
+        return ret
+
+    for si in range(len(s)):
+        if word[0] == s[si]:
+            left_s = ''.rjust(si, '-') + s[si]
+            if s[si + 1:] == '' and word[1:] == '':
+                ret.append(left_s)
+            else:
+                right_s_list = get_list_of_words_banana(s[si + 1:], word[1:])
+                for right_s in right_s_list:
+                    ret.append(left_s + right_s)
+    return ret
+
+
+def count_find_num(a, b):
+    count = 0
+    max_n = 0
+    for i in range(2, b + 1):
+        j = 2
+        primfac = []
+        while j * j <= i:
+            while i % j == 0 and j in a:
+                primfac.append(j)
+                i = i / j
+            j = j + 1
+        if i > 1:
+            primfac.append(int(i))
+        d = primfac
+        if set(a) == set(d):
+            nu = 1
+            for k in d:
+                nu *= k
+            max_n = nu
+            count += 1
+    return [count, max_n] if count != 0 else []
+
+
 if __name__ == "__main__":
-    # print(domain_name("http://google.com"))
-    print(int32_to_ip(0))
+    primesL = [2, 3]
+    limit = 200
+    print(count_find_num(primesL, limit))
