@@ -1,3 +1,6 @@
+from typing import List
+
+
 def domain_name(url: str) -> str:
     """метод domain_name, который вернет домен из url адреса"""
     s = {"http://", "www.", "https://"}
@@ -7,7 +10,7 @@ def domain_name(url: str) -> str:
     return url[:url.find('.')]
 
 
-def int32_to_ip(int32):
+def int32_to_ip(int32: int) -> str:
     """int32_to_ip, который принимает на вход 32-битное целое число (integer) и возвращает строковое представление его в виде IPv4-адреса"""
     h = hex(int32)
     rt = str(h)[2:]
@@ -20,7 +23,7 @@ def int32_to_ip(int32):
     return '.'.join(ipV4)
 
 
-def zeros(n):
+def zeros(n: int) -> int:
     """метод zeros, который принимает на вход целое число (integer) и возвращает количество конечных нулей в факториале заданного числа"""
     result = 0
     while n > 0:
@@ -29,7 +32,7 @@ def zeros(n):
     return result
 
 
-def bananas(s) -> set:
+def bananas(s: str) -> set:
     """думаю, это гениальное решение)"""
     ret = get_list_of_words_banana(s, "banana")
     result = set()
@@ -38,7 +41,7 @@ def bananas(s) -> set:
     return result
 
 
-def get_list_of_words_banana(s, word):
+def get_list_of_words_banana(s: str, word: str) -> list:
     ret = []
 
     if word == '':
@@ -57,21 +60,21 @@ def get_list_of_words_banana(s, word):
     return ret
 
 
-def count_find_num(a, b):
+def count_find_num(primesL: list, limit: int) -> List[int]:  # primesL, limit
     count = 0
     max_n = 0
-    for i in range(2, b + 1):
+    for i in range(2, limit + 1):
         j = 2
         primfac = []
         while j * j <= i:
-            while i % j == 0 and j in a:
+            while i % j == 0 and j in primesL:
                 primfac.append(j)
                 i = i / j
             j = j + 1
         if i > 1:
             primfac.append(int(i))
         d = primfac
-        if set(a) == set(d):
+        if set(primesL) == set(d):
             nu = 1
             for k in d:
                 nu *= k
